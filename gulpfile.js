@@ -6,40 +6,40 @@ const rename        = require('gulp-rename');
 const concat        = require('gulp-concat');
 const cleanCSS      = require('gulp-clean-css');
 const imageMin      = require('gulp-imagemin');
-const pngQuint      = require('imagemin-pngquant'); 
+const pngQuint      = require('imagemin-pngquant');
 const browserSync   = require('browser-sync').create();
 const autoprefixer  = require('gulp-autoprefixer');
-const jpgRecompress = require('imagemin-jpeg-recompress'); 
+const jpgRecompress = require('imagemin-jpeg-recompress');
 const clean         = require('gulp-clean');
 
 
 // Paths
 var paths = {
-    root: { 
-        www:        './public_html'
+    root: {
+        www:        './docs'
     },
     src: {
-        root:       'public_html/assets',
-        html:       'public_html/**/*.html',
-        css:        'public_html/assets/css/*.css',
-        js:         'public_html/assets/js/*.js',
-        vendors:    'public_html/assets/vendors/**/*.*',
-        imgs:       'public_html/assets/imgs/**/*.+(png|jpg|gif|svg)',
-        scss:       'public_html/assets/scss/**/*.scss'
+        root:       'docs/assets',
+        html:       'docs/**/*.html',
+        css:        'docs/assets/css/*.css',
+        js:         'docs/assets/js/*.js',
+        vendors:    'docs/assets/vendors/**/*.*',
+        imgs:       'docs/assets/imgs/**/*.+(png|jpg|gif|svg)',
+        scss:       'docs/assets/scss/**/*.scss'
     },
     dist: {
-        root:       'public_html/dist',
-        css:        'public_html/dist/css',
-        js:         'public_html/dist/js',
-        imgs:       'public_html/dist/imgs',
-        vendors:    'public_html/dist/vendors'
+        root:       'docs/dist',
+        css:        'docs/dist/css',
+        js:         'docs/dist/js',
+        imgs:       'docs/dist/imgs',
+        vendors:    'docs/dist/vendors'
     }
 }
 
 // Compile SCSS
 gulp.task('sass', function() {
     return gulp.src(paths.src.scss)
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError)) 
+    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest(paths.src.root + '/css'))
     .pipe(browserSync.stream());
@@ -99,7 +99,7 @@ gulp.task('watch', function() {
     browserSync.init({
         server: {
             baseDir: paths.root.www
-        } 
+        }
     })
     gulp.watch(paths.src.scss, gulp.series('sass'));
     gulp.watch(paths.src.js).on('change', browserSync.reload);
